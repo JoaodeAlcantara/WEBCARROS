@@ -47,7 +47,7 @@ function Login() {
 
             navigate('/', { replace: true });
 
-        } catch (err) {
+        } catch (err: any) {
             console.log(err);
             if (err.response.data.message) {
                 setMsgError(err.response.data.message);

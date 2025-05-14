@@ -2,12 +2,15 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { register } from 'swiper/element/bundle';
 import { useEffect, useState } from 'react';
 import { Car } from '../types';
-import { useLocation } from "react-router-dom";
 
 register();
+//@ts-expect-error: Swiper CSS types are not available
 import 'swiper/css';
+//@ts-expect-error: Swiper CSS types are not available
 import 'swiper/css/navigation';
+//@ts-expect-error: Swiper CSS types are not available
 import 'swiper/css/pagination';
+//@ts-expect-error: Swiper CSS types are not available
 import 'swiper/css/scrollbar';
 
 

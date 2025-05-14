@@ -41,7 +41,7 @@ function Register() {
             await api.post('/register', data);
 
             navigate('/login', { replace: true });
-        } catch (err: unknown) {
+        } catch (err: any) {
             console.log(err);
             if (err.response.data.message) {
                 setMsgError(err.response.data.message);
