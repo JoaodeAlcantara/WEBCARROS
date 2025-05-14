@@ -8,7 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
+type ViewPassword = | 'password' | 'text'
 
 const schema = z.object({
     name: z.string().nonempty('O campo nome é obrigatório'),
@@ -22,6 +25,7 @@ function Register() {
 
     const navigate = useNavigate();
     const [msgError, setMsgError] = useState('');
+    const [viewPassword, setViewPassword] = useState<ViewPassword>('password')
 
     const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
         resolver: zodResolver(schema),
@@ -92,13 +96,22 @@ function Register() {
                         <span className='font-semibold p-1'>
                             * Senha:
                         </span>
-                        <Input
-                            type='password'
-                            name='password'
-                            placeholder='******'
-                            error={errors.password?.message}
-                            register={register}
-                        />
+                        <div className='relative'>
+                            <Input
+                                type={viewPassword}
+                                name='password'
+                                placeholder='******'
+                                error={errors.password?.message}
+                                register={register}
+                            />
+                            <button type='button' onClick={() => setViewPassword(viewPassword === 'password' ? 'text' : 'password')} className='absolute top-3 right-2 cursor-pointer'>
+                                {
+                                    viewPassword === 'password' ?
+                                        <FaEye size={20} /> :
+                                        <FaEyeSlash size={20} />
+                                }
+                            </button>
+                        </div>
                     </div>
 
                     {msgError && (

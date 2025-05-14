@@ -7,6 +7,7 @@ import New from "./pages/New";
 import Register from "./pages/Register";
 import Layout from "./components/Layout";
 import Favorites from "./pages/Favorites";
+import NotFound from "./pages/NotFound";
 import { Private } from "./routes/private";
 
 export const router = createBrowserRouter([
@@ -36,7 +37,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/favorites',
         element: <Private><Favorites /></Private>
-      }
+      },
+      {
+        path: '*',
+        element: <NotFound />
+      },
     ]
   },
   {
@@ -47,8 +52,5 @@ export const router = createBrowserRouter([
     path: '/register',
     element: <Register />
   },
-  {
-    path: '*',
-    element: <h1>PAGINA NÃO ENCONTRADA</h1>
-  },
+
 ])

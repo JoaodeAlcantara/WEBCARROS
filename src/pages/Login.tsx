@@ -9,7 +9,10 @@ import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext';
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
 
+type ViewPassword = | 'password' | 'text'
 
 const schema = z.object({
     email: z.string().email('Insira um email valido').nonempty('O campo email é obrigatório'),
@@ -28,9 +31,10 @@ function Login() {
     const { getUser } = useAuth();
     const [msgError, setMsgError] = useState('');
     const navigate = useNavigate();
+    const [viewPassword, setViewPassword] = useState<ViewPassword>('password')
 
     useEffect(() => {
-        async function handleLogout(){
+        async function handleLogout() {
             localStorage.removeItem('token');
         };
 
@@ -86,13 +90,22 @@ function Login() {
                         <span className='font-semibold p-1'>
                             * Digite sua senha:
                         </span>
-                        <Input
-                            type='password'
-                            name='password'
-                            placeholder='******'
-                            error={errors.password?.message}
-                            register={register}
-                        />
+                        <div className='relative'>
+                            <Input
+                                type={viewPassword}
+                                name='password'
+                                placeholder='******'
+                                error={errors.password?.message}
+                                register={register}
+                            />
+                            <button type='button' onClick={() => setViewPassword(viewPassword === 'password' ? 'text' : 'password')} className='absolute top-3 right-2 cursor-pointer'>
+                                {
+                                    viewPassword === 'password' ?
+                                        <FaEye size={20} /> :
+                                        <FaEyeSlash size={20} />
+                                }
+                            </button>
+                        </div>
                     </div>
 
                     {msgError && (
