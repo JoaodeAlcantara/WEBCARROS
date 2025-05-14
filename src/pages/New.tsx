@@ -84,7 +84,7 @@ function New() {
         const form = new FormData();
         if (data) {
             Object.entries(data).forEach(([key, value]) => {
-                form.append(key, value);
+                form.append(key, String(value));
             });
         }
         if (images) {

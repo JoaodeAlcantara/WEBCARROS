@@ -33,7 +33,7 @@ function Dashboard() {
 
             dispatch({ type: 'setDashboardLoader', payload: false });
             dispatch({ type: 'setMyCar', payload: req.data.cars });
-        } catch (err) {
+        } catch (err: any) {
             console.log(err);
             toast.error(`${err.response.data.message}`, {
                 containerId: 'dash',
