@@ -18,7 +18,7 @@ function ItemCar({ item }: { item: Car }) {
     return (
         <>
             <Link to={`/car/${item.slug}`}>
-                <section className='w-full bg-white rounded-lg flex flex-col group hover:shadow-2xl duration-200 cursor-pointer relative'>
+                <section className='w-full bg-white rounded-lg flex flex-col group shadow hover:shadow-2xl duration-200 cursor-pointer relative'>
                     {item.status ===  'oculto' && (
                         <div className="bg-gray-300/50 absolute z-10 w-full h-full rounded-lg flex items-center justify-center">
                             <p className="bg-gray-600 px-2 py-1 rounded-full text-white font-semibold">{item.status.toLocaleUpperCase()}</p>

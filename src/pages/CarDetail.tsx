@@ -106,7 +106,7 @@ function CarDetail() {
                             <p className="w-full max-w-2xl text-justify">{car.description}</p>
                         </div>
 
-                        <a href={`https://api.whatsapp.com/send?phone=${car.contactPhone}&text=Olá, vi o ${car.name} e fiquei interessado`} target="_blank" className="bg-green-500 w-full text-white font-semibold flex items-center justify-center gap-2 my-6 h-11 text-xl rounded-lg cursor-pointer hover:bg-green-600 duration-200">
+                        <a href={`https://api.whatsapp.com/send?phone=${car.contactPhone}&text=Olá, vi esse ${car.name.toUpperCase()} no site WebCarros e fiquei interessado`} target="_blank" className="bg-green-500 w-full text-white font-semibold flex items-center justify-center gap-2 my-6 h-11 text-xl rounded-lg cursor-pointer hover:bg-green-600 duration-200">
                             Conversar com o vendedor <FaWhatsapp size={25} />
                         </a>
                     </main>
