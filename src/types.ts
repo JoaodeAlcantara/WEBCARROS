@@ -61,7 +61,7 @@ export interface Car {
     slug: string;
     userId: number;
     user?: User;
-    favorites?: Favorite[];
+    favorites?: FavoriteItem[];
     createdAt: string;
 }
 
@@ -71,7 +71,7 @@ export interface CarImage {
     carId: number;
 }
 
-export interface Favorite {
+export interface FavoriteItem {
     id: number;
     userId: number;
     carId: number;
@@ -80,11 +80,15 @@ export interface Favorite {
     car?: Car;
 }
 
+export interface FavoriteGroup {
+    [groupName: string]: FavoriteItem[];
+}
+
 export interface User {
     id: number;
     name: string;
     email: string;
     createdAt: string; 
     cars?: Car[];
-    favorites?: Favorite[];
+    favorites?: FavoriteItem[];
 }
