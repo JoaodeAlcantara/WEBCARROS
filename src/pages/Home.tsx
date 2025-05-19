@@ -15,7 +15,7 @@ function Home() {
 
     const { authLoader } = useAuth();
     const { cars, carLoader, dispatch, fetch, searchName } = useCar();
-    const { dispatch: favDispatch, showModal } = useFavorite();
+    const { showModal } = useFavorite();
 
     async function getCars() {
         try {
