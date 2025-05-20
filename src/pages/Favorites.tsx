@@ -5,7 +5,6 @@ import { useFavorite } from "../contexts/FavoriteContext";
 import api from "../services/api";
 import Loader from "../components/Loader";
 import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
 import ContainerFav from "../components/ContainerFav";
 
 function Favorites() {
