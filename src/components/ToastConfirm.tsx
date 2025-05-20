@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 interface ToastConfirmProps {
     message: string;
-    onConfirm: () => void;
+    onConfirm: (gpName?: string) => void;
     onCancel?: () => void;
 }
 

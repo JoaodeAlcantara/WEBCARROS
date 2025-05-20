@@ -21,7 +21,7 @@ interface ItemProps {
 
 function ItemCar({ item, fav }: ItemProps) {
 
-    const { auth } = useAuth();
+    const { auth, signed } = useAuth();
     const location = useLocation();
     const [showMenu, setShowMenu] = useState(false);
     const { dispatch, deleteFavoriteItem } = useFavorite();
@@ -29,17 +29,16 @@ function ItemCar({ item, fav }: ItemProps) {
     const isFavorite = Array.isArray(fav) ? fav?.some(f => f.userId === auth?.id) : fav;
 
     function handleFavorite(id: number) {
-
         dispatch({ type: 'setShowModal', payload: true });
         dispatch({ type: 'setCarId', payload: id });
     }
 
     async function handleDelete(id: number) {
-        
+
         const favorite = Array.isArray(fav) ? fav?.find(f => f.carId === id && f.userId === auth?.id) : fav;
         const isDelete = favorite ? await deleteFavoriteItem(favorite?.id) : false;
 
-        if(isDelete){
+        if (isDelete) {
             toast.success('Carro removido dos favoritos', {
                 containerId: 'fav',
                 position: "top-center",
@@ -48,8 +47,8 @@ function ItemCar({ item, fav }: ItemProps) {
                 theme: 'dark'
             })
 
-            carDispatch({type: 'setFetch', payload: true});
-            dispatch({type: 'setFetch', payload: true});
+            carDispatch({ type: 'setFetch', payload: true });
+            dispatch({ type: 'setFetch', payload: true });
         } else {
             toast.error('Erro ao remover o carro', {
                 containerId: 'fav',
@@ -88,10 +87,10 @@ function ItemCar({ item, fav }: ItemProps) {
                         }
                         {location.pathname === '/dashboard/favorites' &&
                             <button className="p-1.5 rounded-full bg-white flex items-center justify-center absolute right-2 top-2 hover:text-red-600 duration-200 z-20"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleDelete(item.id);
-                            }}  
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    handleDelete(item.id);
+                                }}
                             >
                                 <FaTrashAlt size={20} className="cursor-pointer" />
                             </button>
@@ -124,10 +123,20 @@ function ItemCar({ item, fav }: ItemProps) {
                                 <button onClick={(e) => {
                                     e.preventDefault();
 
-                                    if(isFavorite) {
-                                        handleDelete(item.id)
+                                    if (signed) {
+                                        if (isFavorite) {
+                                            handleDelete(item.id)
+                                        } else {
+                                            handleFavorite(item.id)
+                                        }
                                     } else {
-                                        handleFavorite(item.id)
+                                        toast.error('Faça login para favoritar um item', {
+                                            containerId: 'fav',
+                                            position: "top-center",
+                                            autoClose: 4000,
+                                            pauseOnHover: false,
+                                            theme: 'dark'
+                                        })
                                     }
                                 }
                                 }

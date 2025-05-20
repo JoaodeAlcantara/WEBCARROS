@@ -5,7 +5,7 @@ import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { AiOutlineMenuFold } from "react-icons/ai";
 import { IoCarSportSharp } from "react-icons/io5";
 import { MdFavorite } from "react-icons/md";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CiLogout } from "react-icons/ci";
 import { useAuth } from "../contexts/authContext";
 import { ToastContainer } from "react-toastify";
@@ -17,16 +17,8 @@ function SideBar() {
 
     const navigate = useNavigate();
     const { setAuth } = useAuth();
-    const [isOpen, setIsOpen] = useState(() => {
-        const stored = sessionStorage.getItem("sidebarOpen");
-        return stored === "true";
-    });
+    const [isOpen, setIsOpen] = useState(false);
     const { dispatch } = useMyCar();
-
-    useEffect(() => {
-        sessionStorage.setItem("sidebarOpen", String(isOpen));
-    }, [isOpen]);
-
 
     function handleLogout() {
         navigate('/');

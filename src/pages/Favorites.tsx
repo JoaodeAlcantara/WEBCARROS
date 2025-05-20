@@ -5,11 +5,12 @@ import { useFavorite } from "../contexts/FavoriteContext";
 import api from "../services/api";
 import Loader from "../components/Loader";
 import { useEffect } from "react";
-import ItemCar from "../components/ItemCar";
 import { ToastContainer } from "react-toastify";
+import ContainerFav from "../components/ContainerFav";
 
 function Favorites() {
     const { favLoader, favorites, fetch, dispatch } = useFavorite();
+    
 
     async function getFavorites() {
         try {
@@ -31,6 +32,7 @@ function Favorites() {
         }
     }
 
+    
     useEffect(() => {
         getFavorites();
     }, []);
@@ -41,6 +43,7 @@ function Favorites() {
         }
         dispatch({ type: 'setFetch', payload: false });
     }, [fetch])
+
 
     if (favLoader) {
         return <Loader />
@@ -59,29 +62,11 @@ function Favorites() {
                     }
 
                     {Object.entries(favorites).map(([gpName, cars]) => (
-                        <div key={gpName} className="mb-10 mt-5 rounded-lg p-2">
-                            <div className="w-full mb-2 border-b-2 border-gray-400 px-2">
-                                <h2 className="text-xl font-bold">{gpName}</h2>
-                            </div>
-
-                            {Array.isArray(cars) ? (
-                                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                                    {cars.map(item => (
-                                        <ItemCar
-                                            key={item.carId}
-                                            item={item.car}
-                                            fav={item}
-                                        />
-                                    ))}
-                                </div>
-                            ) : (
-                                <p>Nenhum carro disponível.</p>
-                            )}
-                        </div>
+                        <ContainerFav key={gpName} gpName={gpName} cars={cars} />
                     ))}
                 </AccountContainer>
             </Container>
-            <ToastContainer containerId={'fav'} />
+            {/* <ToastContainer containerId={'fav'} /> */}
         </>
     )
 }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlusCircle } from "react-icons/fa";
 import { useFavorite } from "../contexts/FavoriteContext";
 import api from "../services/api";
@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useCar } from "../contexts/CarContext";
 import { FavoriteItem } from "../types";
 import { IoCarSportSharp } from "react-icons/io5";
-
+// import { Car } from "../types";
 
 
 interface GroupType {
@@ -14,7 +14,11 @@ interface GroupType {
     name: string
 }
 
-function FavoriteModal() {
+interface FavProps {
+    setFetch?: React.Dispatch<boolean>;
+}
+
+function FavoriteModal({ setFetch }: FavProps) {
 
     const [newGroup, setNewGroup] = useState(false);
     const { dispatch, carId } = useFavorite();
@@ -22,8 +26,9 @@ function FavoriteModal() {
     const [group, setGroup] = useState<GroupType[]>();
     const [input, setInput] = useState('');
     const [msgErro, setmsgErro] = useState('');
+    // const [car, setCar] = useState<Car>();
 
-    async function handleAddfavorite(groupName : string | undefined) {
+    async function handleAddfavorite(groupName: string | undefined) {
         try {
             const group = groupName !== undefined ? groupName : input
 
@@ -47,6 +52,7 @@ function FavoriteModal() {
                 pauseOnHover: false,
                 theme: 'dark'
             });
+            if (setFetch) setFetch(true);
 
             setInput('')
             carDispatch({ type: 'setFetch', payload: true });
@@ -83,8 +89,26 @@ function FavoriteModal() {
         }
     }
 
-    useEffect(() => { handleGetGroup() }, []);
+    async function getByCarId() {
+        try {
+            if (!carId) return;
 
+            const req = await api.get(`/list-car/id/${carId}`);
+
+            if (req.data.status === 404) {
+                console.log('não existe')
+            }
+
+            // setCar(req.data.car);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    useEffect(() => {
+        handleGetGroup()
+        getByCarId()
+    }, []);
 
     return (
         <>
@@ -93,6 +117,15 @@ function FavoriteModal() {
             ></div>
 
             <section className="fixed z-50 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 rounded-lg shadow-2xl w-full max-w-[400px]">
+                {/* <div className="mb-2 bg-zinc-900 rounded-lg py-4 px-6">
+                    <div className="flex gap-2 cursor-default">
+                        <img src={`http://localhost:3000/files/${car?.carImages[0].filename}`} alt="imagem do carro" className="w-30 object-cover rounded-lg" />
+                        <div className="flex flex-col items-start justify-center text-gray-300">
+                            <p className="text-lg font-semibold">{car?.name}</p>
+                            <p>{car?.model}</p>
+                        </div>
+                    </div>
+                </div> */}
                 <div className="flex items-center gap-4 bg-zinc-900 px-6 py-4 rounded-t-lg cursor-pointer hover:bg-zinc-950 duration-200 border-b-2 border-white"
                     onClick={() => handleAddfavorite(undefined)}
                 >
@@ -128,29 +161,37 @@ function FavoriteModal() {
 
                 {newGroup ?
                     <div className="bg-zinc-900 flex flex-col items-center justify-center px-6 py-4 rounded-b-lg">
-                        <input
-                            type="text"
-                            className="bg-zinc-700 rounded-lg w-full h-10 border-zinc-800 border-2 text-white px-2 outline-none" placeholder="Nome do grupo..."
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                        />
-                        {msgErro && (<span className="text-red-600">* {msgErro}</span>)}
+                        <form className="w-full">
+                            <input
+                                type="text"
+                                className="bg-zinc-700 rounded-lg w-full h-10 border-zinc-800 border-2 text-white px-2 outline-none" placeholder="Nome do grupo..."
+                                value={input}
+                                onChange={(e) => setInput(e.target.value)}
+                            />
+                            {msgErro && (<span className="text-red-600">* {msgErro}</span>)}
 
-                        <div className="flex w-full justify-between mt-5">
-                            <button onClick={() => setNewGroup(!newGroup)}
-                                className="cursor-pointer bg-zinc-700 border-0 text-white px-3 py-1 rounded-lg hover:bg-zinc-800 duration-200">
-                                Cancelar
-                            </button>
-                            <button onClick={() => handleAddfavorite(undefined)}
-                                className="cursor-pointer bg-zinc-700 border-0 text-white px-3 py-1 rounded-lg hover:bg-zinc-800 duration-200">
-                                Salvar
-                            </button>
-                        </div>
+                            <div className="flex w-full justify-end gap-3 mt-5">
+                                <button type="button" onClick={() => {
+                                    setNewGroup(!newGroup);
+                                    setmsgErro('');
+                                }}
+                                    className="cursor-pointer bg-zinc-700 border-0 text-white px-3 py-1 rounded-lg hover:bg-zinc-800 duration-200">
+                                    Cancelar
+                                </button>
+                                <button type="submit" onClick={(e) => {
+                                    e.preventDefault();
+                                    handleAddfavorite(undefined);
+                                }}
+                                    className="cursor-pointer bg-zinc-700 border-0 text-white px-3 py-1 rounded-lg hover:bg-zinc-800 duration-200">
+                                    Salvar
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     :
                     <div className="bg-zinc-900 rounded-b-lg p-4">
                         <div className="flex items-center justify-between">
-                            <p className="text-gray-300 text-xl font-semibold">Grupos</p>
+                            <p className="text-gray-300 text-xl font-semibold cursor-default">Grupos</p>
                             <button onClick={() => setNewGroup(!newGroup)}
                                 className="text-white cursor-pointer hover:bg-zinc-950 py-1 px-2 rounded-lg text-xl font-semibold">
                                 Novo Grupo +
@@ -166,6 +207,7 @@ function FavoriteModal() {
                                             <div onClick={() => {
                                                 handleAddfavorite(item.name);
                                             }}
+                                                key={item.name}
                                                 className="cursor-pointer mt-5 flex items-center justify- gap-4 hover:bg-zinc-950 p-2 rounded-lg duration-200">
                                                 <img src={`http://localhost:3000/files/${item.image}`} alt="imagem do carro" className="w-30 h-auto rounded-lg" />
                                                 <div className="flex items-center gap-4">
