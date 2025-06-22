@@ -41,7 +41,7 @@ export enum TransmissionType {
 }
 
 export interface Car {
-    images: string;
+    images: any;
     id: number;
     name: string;
     model: string;
