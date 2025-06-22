@@ -155,7 +155,7 @@ function ContainerFav({ gpName, cars }: FavProps) {
                     {cars.map(item => (
                         <ItemCar
                             key={item.carId}
-                            item={item.car}
+                            item={item}
                             fav={item}
                         />
                     ))}

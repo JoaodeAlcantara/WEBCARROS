@@ -71,7 +71,12 @@ function ItemCar({ item, fav }: ItemProps) {
                         </div>
                     )}
                     <div className="relative">
-                        <img src={`http://localhost:3000/files/${item.carImages[0].filename}`} alt="imagem do carro" className="w-full h-50 rounded-t-lg object-cover" />
+                        {location.pathname === '/dashboard/favorites' ?
+                            <img src={`http://localhost:3000/files/${item.images}`} alt="imagem do carro" className="w-full h-50 rounded-t-lg object-cover" />
+                            : 
+                            <img src={`http://localhost:3000/files/${item.carImages[0].filename}`} alt="imagem do carro" className="w-full h-50 rounded-t-lg object-cover" />
+                        }
+
 
                         <span className="absolute bottom-4 left-2 bg-white/70 rounded-md px-1 hidden items-center gap-4 text-gray-600 group-hover:flex duration-150">
                             <FaEye /> {item.views}

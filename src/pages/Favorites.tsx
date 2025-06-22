@@ -19,6 +19,8 @@ function Favorites() {
                 }
             });
 
+            console.log(req)
+
             dispatch({ type: 'setFavorites', payload: req.data.favorites });
             dispatch({ type: 'setFavLoader', payload: false });
         } catch (err: any) {
@@ -65,7 +67,6 @@ function Favorites() {
                     ))}
                 </AccountContainer>
             </Container>
-            {/* <ToastContainer containerId={'fav'} /> */}
         </>
     )
 }
