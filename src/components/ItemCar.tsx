@@ -59,8 +59,6 @@ function ItemCar({ item, fav }: ItemProps) {
             })
         }
     }
-
-
     return (
         <>
             <Link to={`/car/${item.slug}`}>

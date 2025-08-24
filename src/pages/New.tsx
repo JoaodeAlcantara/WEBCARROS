@@ -148,8 +148,8 @@ function New() {
 
     async function onSubmit(data: formData) {
 
-        if (images.length < 1) {
-            toast.error('Adicione ao menos 1 imagem', {
+        if (images.length < 2) {
+            toast.error('Adicione ao menos 2 imagem', {
                 containerId: 'err',
                 position: "bottom-center",
                 autoClose: 4000,

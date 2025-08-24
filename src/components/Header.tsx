@@ -20,15 +20,16 @@ function Header() {
                 {
                     signed ?
                         <Link to={'/dashboard'}>
-                            <div className='border-2 rounded-full p-1 border-gray-900'>
+                            <div className='border-2 rounded-full sm:border-0 sm:rounded-none  sm:border-b-2 p-1 border-gray-900 flex items-center justify-center gap-2 font-semibold hover:bg-gray-200 duration-200 hover:rounded-t-md'>
+                                <span className='hidden sm:block'>Meu Perfil</span>
                                 <FiUser size={22} color='#000' />
                             </div>
                         </Link>
                         :
                         <Link to={'/login'}>
-                            <div className='border-2 rounded-lg flex items-center gap-2 p-1 border-gray-900'>
-                                <FiLogIn size={22} color='#000' />
+                            <div className='border-2 rounded-full sm:border-0 sm:rounded-none  sm:border-b-2 p-1 border-gray-900 flex items-center justify-center gap-2 font-semibold hover:bg-gray-200 duration-200 hover:rounded-t-md'>
                                 <span className='font-semibold'>Entrar</span>
+                                <FiLogIn size={22} color='#000' />
                             </div>
                         </Link>
                 }
