@@ -35,6 +35,8 @@ O aplicativo é full-stack, com frontend em React com TypeScript e Tailwind CSS 
 - Rotas protegidas para operações privadas
 
 ### Banco de Dados
+<img width="886" height="680" alt="image" src="https://github.com/user-attachments/assets/8ed8f650-8a09-4bb6-9681-0cbd0732e6d2" />
+
 - Tabelas: Users, Cars, CarImages, Favorites
 - Relacionamentos: Um usuário possui múltiplos carros, imagens e favoritos; um carro pode ser favoritado por múltiplos usuários.
 
@@ -93,37 +95,32 @@ O frontend estará rodando em `http://localhost:5173` (padrão do Vite).
 
 ## Páginas do Aplicativo
 
-### 1. Modelagem de Dados
-<img width="886" height="680" alt="image" src="https://github.com/user-attachments/assets/8ed8f650-8a09-4bb6-9681-0cbd0732e6d2" />
-
-O banco de dados utiliza Prisma para modelar entidades como usuários, carros, imagens e favoritos. Relacionamentos incluem um-para-muitos (usuário para carros) e muitos-para-muitos (favoritos).
-
-### 2. Página Inicial
+### 1. Página Inicial
 <img width="886" height="424" alt="image" src="https://github.com/user-attachments/assets/cf7f6b01-bd60-4b8e-b736-1403b55fd751" />
 
 Exibe uma lista de anúncios de carros postados por outros usuários, com filtros e busca por modelo ou localização.
 
-### 3. Página de Login
+### 2. Página de Login
 <img width="886" height="425" alt="image" src="https://github.com/user-attachments/assets/c84d3a14-705a-4f75-9012-6dcea8ffe94b" />
 
 Formulário de registro e login com validação usando Zod, resolvers e React Hook Form para garantir dados seguros.
 
-### 4. Página do Anúncio do Veículo
+### 3. Página do Anúncio do Veículo
 <img width="886" height="719" alt="image" src="https://github.com/user-attachments/assets/6854af3d-62b2-4e52-854d-ec56082f3d97" />
 
 Detalhes completos do veículo selecionado, incluindo imagens, preço, descrição e opção de contato com o vendedor.
 
-### 5. Página do Perfil do Usuário
+### 4. Página do Perfil do Usuário
 <img width="886" height="420" alt="image" src="https://github.com/user-attachments/assets/af03e5c0-1f19-47fa-9ece-9b1589224221" />
 
 Mostra os anúncios de carros publicados pelo usuário logado, com opções de edição e exclusão.
 
-### 6. Página de Criação de Anúncio
+### 5. Página de Criação de Anúncio
 <img width="886" height="583" alt="image" src="https://github.com/user-attachments/assets/40022719-7f0f-417b-a3b1-49181e5c1f45" />
 
 Formulário para criar um novo anúncio de veículo, com upload de até 10 imagens e validação via Zod, resolvers e React Hook Form.
 
-### 7. Página de Carros Favoritados
+### 6. Página de Carros Favoritados
 <img width="886" height="426" alt="image" src="https://github.com/user-attachments/assets/1da942eb-49a3-4763-9029-196f1a781a36" />
 
 Lista os veículos favoritados, organizados em grupos (ex: 2 carros em um grupo específico), com opções de visualização, remoção e renomeação de grupos.
